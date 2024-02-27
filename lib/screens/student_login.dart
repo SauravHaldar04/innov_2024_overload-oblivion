@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:innovate_2/global/global_var.dart';
+import 'package:innovate_2/resources/auth_methods.dart';
 import 'package:innovate_2/screens/student_signup.dart';
+import 'package:innovate_2/widgets/utils.dart';
 
 class StudentLogin extends StatelessWidget {
   const StudentLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _emailController = TextEditingController();
+    TextEditingController _passwordController = TextEditingController();
+
+    Future<void> loginStudent() async {
+      String res = await AuthMethods().loginStudent(
+          email: _emailController.text, password: _passwordController.text);
+      if (res != 'Success') {
+        showSnackBar(context, res);
+      } else {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const Scaffold(),
+          ),
+        );
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -19,47 +38,48 @@ class StudentLogin extends StatelessWidget {
               const BoxDecoration(gradient: GlobalVariables.primaryGradient),
         ),
       ),
-      
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-         
         child: SingleChildScrollView(
-           
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 120.0),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(
                   labelText: 'Student Email',
-                  floatingLabelStyle: TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
+                  floatingLabelStyle:
+                      TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
                   focusColor: Color.fromRGBO(31, 68, 255, 0.776),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
+                    borderSide:
+                        BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
                   ),
                 ),
               ),
               const SizedBox(height: 16.0),
-              const TextField(
+              TextField(
+                controller: _passwordController,
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Password',
-                  floatingLabelStyle: TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
+                  floatingLabelStyle:
+                      TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
                   focusColor: Color.fromRGBO(31, 68, 255, 0.776),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
+                    borderSide:
+                        BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
                   ),
                 ),
               ),
               const SizedBox(height: 45.0),
               ElevatedButton(
-                onPressed: () {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //       builder: (_) => StudentDashboard())
-                    //       );
+                onPressed: () async {
+                  await loginStudent();
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromRGBO(31, 68, 255, 0.776),
+                  backgroundColor: const Color.fromRGBO(31, 68, 255, 0.776),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
@@ -105,9 +125,7 @@ class StudentLogin extends StatelessWidget {
               ),
               const SizedBox(height: 50.0),
               ElevatedButton(
-                onPressed: () {
-                  
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
@@ -154,8 +172,7 @@ class StudentLogin extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => const StudentSignup()
-                          ));
+                          builder: (_) => const StudentSignup()));
                     },
                     child: const Text(
                       'Create an Account',

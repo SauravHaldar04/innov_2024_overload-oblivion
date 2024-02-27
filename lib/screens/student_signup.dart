@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:innovate_2/global/global_var.dart';
+import 'package:innovate_2/resources/auth_methods.dart';
+import 'package:innovate_2/screens/student_login.dart';
+import 'package:innovate_2/widgets/utils.dart';
 
 class StudentSignup extends StatefulWidget {
   const StudentSignup({super.key});
@@ -9,6 +12,40 @@ class StudentSignup extends StatefulWidget {
 }
 
 class _StudentSignupState extends State<StudentSignup> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _cpassController = TextEditingController();
+
+  Future<void> signUpStudent() async {
+    String res = await AuthMethods().signUpStudent(
+        email: _emailController.text,
+        password: _passwordController.text,
+        studentname: _nameController.text,
+        year: selectedValue,
+        course: selectedCourse,
+        division: selectedDivision);
+
+    if (res != 'Success') {
+      showSnackBar(context, res);
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const StudentLogin(),
+        ),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _nameController.dispose();
+    _passwordController.dispose();
+    _cpassController.dispose();
+    super.dispose();
+  }
+
   String selectedValue = "FE";
   String selectedDivision = "C1";
   String selectedCourse = "Economics";
@@ -35,47 +72,59 @@ class _StudentSignupState extends State<StudentSignup> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 10.0),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(
                     labelText: 'Name',
-                    floatingLabelStyle: TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
+                    floatingLabelStyle:
+                        TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
                     focusColor: Color.fromRGBO(31, 68, 255, 0.776),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
+                      borderSide:
+                          BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
                     ),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
                     labelText: 'Student Email',
-                    floatingLabelStyle: TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
+                    floatingLabelStyle:
+                        TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
                     focusColor: Color.fromRGBO(31, 68, 255, 0.776),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
+                      borderSide:
+                          BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
                     ),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                const TextField(
+                TextField(
+                  controller: _passwordController,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
+                      borderSide:
+                          BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
                     ),
                     labelText: 'Password',
-                    floatingLabelStyle: TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
+                    floatingLabelStyle:
+                        TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                const TextField(
+                TextField(
+                  controller: _cpassController,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
+                      borderSide:
+                          BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
                     ),
                     labelText: 'Confirm Password',
-                    floatingLabelStyle: TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
+                    floatingLabelStyle:
+                        TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
                   ),
                 ),
                 const SizedBox(
@@ -148,7 +197,7 @@ class _StudentSignupState extends State<StudentSignup> {
                     ],
                     onChanged: (String? newValue) {
                       setState(() {
-                        selectedValue = newValue!;
+                        selectedDivision = newValue!;
                         // Perform actions based on the selected value
                       });
                     },
@@ -184,7 +233,7 @@ class _StudentSignupState extends State<StudentSignup> {
                     ],
                     onChanged: (String? newValue) {
                       setState(() {
-                        selectedValue = newValue!;
+                        selectedCourse = newValue!;
                         // Perform actions based on the selected value
                       });
                     },
@@ -192,8 +241,8 @@ class _StudentSignupState extends State<StudentSignup> {
                 ),
                 const SizedBox(height: 45.0),
                 ElevatedButton(
-                  onPressed: () {
-                    // Perform student login logic here
+                  onPressed: () async {
+                    await signUpStudent();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color.fromRGBO(31, 68, 255, 0.776),
@@ -225,9 +274,8 @@ class _StudentSignupState extends State<StudentSignup> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //     builder: (_) => const StudentSignupPage()
-                        //     ));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => const StudentLogin()));
                       },
                       child: const Text(
                         'Login',
