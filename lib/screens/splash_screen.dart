@@ -1,6 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:innovate_2/screens/teacher_homepage.dart';
+
 import 'package:innovate_2/screens/user_type_selec.dart';
 import 'package:lottie/lottie.dart';
 
