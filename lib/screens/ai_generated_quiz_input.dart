@@ -70,7 +70,7 @@ class _AIQuizInputPageState extends State<AIQuizInputPage> {
                 BlueButton(
                     onTap: () async {
                       final response = await http.get(Uri.parse(
-                          'https://8892-59-164-67-218.ngrok-free.app/categories'));
+                          '${GlobalVariables.Url}/categories'));
                       if (response.statusCode == 200) {
                         final decodedResponse = json.decode(response.body);
                         setState(() {
@@ -172,7 +172,7 @@ class _AIQuizInputPageState extends State<AIQuizInputPage> {
                     onTap: () async {
                       final response = await http.post(
                         Uri.parse(
-                            'https://8892-59-164-67-218.ngrok-free.app/quiz'),
+                            '${GlobalVariables.Url}/quiz'),
                         body: json.encode(<String, dynamic>{
                           'difficulty': selectedDifficulty,
                           'topic_id': enteredTopicID,

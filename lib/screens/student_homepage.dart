@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:innovate_2/resources/database.dart';
 
 import 'package:innovate_2/screens/quiz_play.dart';
+import 'package:innovate_2/screens/short_answer_screen.dart';
 import 'package:innovate_2/screens/user_type_selec.dart';
 
 
@@ -84,7 +85,7 @@ class _StudentHomepageState extends State<StudentHomepage> {
           ),
         ),
         title: Text(
-          'Homepage',
+          'Student Homepage',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -155,7 +156,7 @@ class _StudentHomepageState extends State<StudentHomepage> {
               height: 48,
               child: IconButton(
                 onPressed: () => setState(() => isCreateMode = false),
-                icon: Icon(Icons.get_app, size: 39),
+                icon: Icon(Icons.upload, size: 39),
                 color: !isCreateMode ? Colors.blue : Colors.grey,
               ),
             ),
@@ -165,10 +166,26 @@ class _StudentHomepageState extends State<StudentHomepage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          if (isCreateMode) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ShortAnswerScreen(),
+              ),
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ShortAnswerScreen(),
+              ),
+            );
+          }
+        },
         child: Icon(isCreateMode
-            ? Icons.add
-            : Icons.document_scanner), // Change icon based on mode
+            ? Icons.short_text_sharp
+            : Icons.assignment), // Change icon based on mode
       ),
     );
   }
