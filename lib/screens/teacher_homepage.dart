@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:innovate_2/global/global_var.dart';
 import 'package:innovate_2/providers/teacher_provider.dart';
 import 'package:innovate_2/resources/database.dart';
+import 'package:innovate_2/screens/add_question.dart';
 import 'package:innovate_2/screens/ai_generated_quiz_input.dart';
+import 'package:innovate_2/screens/create_ai_quiz.dart';
 import 'package:innovate_2/screens/create_quiz.dart';
 import 'package:innovate_2/screens/quiz_play.dart';
 import 'package:innovate_2/screens/user_type_selec.dart';
 import 'package:innovate_2/widgets/widgets.dart';
+import 'package:uuid/uuid.dart';
 
 class TeacherHomepage extends StatefulWidget {
   const TeacherHomepage({super.key});
@@ -37,15 +40,18 @@ class _TeacherHomepageState extends State<TeacherHomepage> {
                         physics: ClampingScrollPhysics(),
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
-                          return QuizTile(
-                            noOfQuestions: snapshot.data!.docs.length,
-                            imageUrl:
-                                snapshot.data!.docs[index].data()['quizImgUrl'],
-                            title:
-                                snapshot.data!.docs[index].data()['quizTitle'],
-                            description:
-                                snapshot.data!.docs[index].data()['quizDesc'],
-                            id: snapshot.data!.docs[index].data()['id'],
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: QuizTile(
+                              noOfQuestions: snapshot.data!.docs.length,
+                              imageUrl: snapshot.data!.docs[index]
+                                  .data()['quizImgUrl'],
+                              title: snapshot.data!.docs[index]
+                                  .data()['quizTitle'],
+                              description:
+                                  snapshot.data!.docs[index].data()['quizDesc'],
+                              id: snapshot.data!.docs[index].data()['id'],
+                            ),
                           );
                         });
               },
@@ -57,7 +63,7 @@ class _TeacherHomepageState extends State<TeacherHomepage> {
   }
 
   @override
-  Future<void> initState() async {
+  void initState() {
     databaseService.getQuizData().then((value) {
       quizStream = value;
       setState(() {});
@@ -67,7 +73,7 @@ class _TeacherHomepageState extends State<TeacherHomepage> {
   }
 
   // addData() async {
-  //   TeacherProvider _teacherProvider = 
+  //   TeacherProvider _teacherProvider =
   // }
 
   @override
@@ -172,10 +178,18 @@ class _TeacherHomepageState extends State<TeacherHomepage> {
         onPressed: () {
           if (isCreateMode) {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => CreateQuiz()));
+              context,
+              MaterialPageRoute(
+                builder: (context) => CreateQuiz(),
+              ),
+            );
           } else {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AIQuizInputPage()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CreateAIQuiz(),
+              ),
+            );
           }
         },
         child: Icon(isCreateMode
