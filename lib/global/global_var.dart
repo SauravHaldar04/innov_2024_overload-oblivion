@@ -10,6 +10,6 @@ class GlobalVariables {
   
 
  
-  // static String mongoUrl 
+  static String Url = 'https://f0c2-59-164-67-218.ngrok-free.app'; 
       
 }
