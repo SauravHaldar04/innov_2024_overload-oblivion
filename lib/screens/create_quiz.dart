@@ -57,20 +57,22 @@ class _CreateQuizState extends State<CreateQuiz> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: BackButton(
-          color: Colors.black54,
+        title: const Text(
+          'Enter Quiz Details',
+          style: TextStyle(
+              color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold),
         ),
-        title: Text("Quiz"),
-
-        elevation: 0.0,
-        backgroundColor: Colors.transparent,
-        //brightness: Brightness.li,
+        flexibleSpace: Container(
+          decoration:
+              const BoxDecoration(gradient: GlobalVariables.primaryGradient),
+        ),
       ),
       body: Form(
         key: _formKey,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16), // Add vertical spacing
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start, // Align fields to the left
             children: [
               TextFormField(
                 validator: (val) =>
@@ -82,7 +84,7 @@ class _CreateQuizState extends State<CreateQuiz> {
                 },
               ),
               SizedBox(
-                height: 5,
+                height: 16, // Add vertical spacing
               ),
               TextFormField(
                 validator: (val) => val!.isEmpty ? "Enter Quiz Title" : null,
@@ -92,7 +94,7 @@ class _CreateQuizState extends State<CreateQuiz> {
                 },
               ),
               SizedBox(
-                height: 5,
+                height: 16, // Add vertical spacing
               ),
               TextFormField(
                 validator: (val) =>
@@ -102,8 +104,8 @@ class _CreateQuizState extends State<CreateQuiz> {
                   quizDesc = val;
                 },
               ),
-              const SizedBox(
-                height: 16,
+              SizedBox(
+                height: 16, // Add vertical spacing
               ),
               const Text('Select a year'),
               Container(
@@ -138,8 +140,8 @@ class _CreateQuizState extends State<CreateQuiz> {
                   },
                 ),
               ),
-              const SizedBox(
-                height: 16,
+              SizedBox(
+                height: 16, // Add vertical spacing
               ),
               const Text('Select a Division'),
               Container(

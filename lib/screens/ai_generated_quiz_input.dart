@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:innovate_2/global/global_var.dart';
 import 'dart:convert';
 
 import 'package:innovate_2/screens/ai_generated_page.dart';
@@ -20,7 +21,15 @@ class _AIQuizInputPageState extends State<AIQuizInputPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('AI Generated Quiz'),
+        title: const Text(
+          'Enter Quiz Details',
+          style: TextStyle(
+              color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold),
+        ),
+        flexibleSpace: Container(
+          decoration:
+              const BoxDecoration(gradient: GlobalVariables.primaryGradient),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
