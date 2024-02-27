@@ -10,6 +10,15 @@ class AIQuizPlay extends StatefulWidget {
 class _AIQuizPlayState extends State<AIQuizPlay> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('AI Generated Quiz Play'),
+      ),
+      body: Column(
+        children: [
+          
+        ],
+        )
+    );
   }
 }
