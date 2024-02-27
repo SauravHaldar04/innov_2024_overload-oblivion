@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:innovate_2/global/global_var.dart';
 import 'package:innovate_2/providers/teacher_provider.dart';
 import 'package:innovate_2/resources/database.dart';
+import 'package:innovate_2/screens/ai_generated_quiz_input.dart';
 import 'package:innovate_2/screens/create_quiz.dart';
 import 'package:innovate_2/screens/quiz_play.dart';
 import 'package:innovate_2/screens/user_type_selec.dart';
