@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:innovate_2/global/global_var.dart';
-import 'package:innovate_2/models/teacher_model.dart';
-import 'package:innovate_2/providers/teacher_provider.dart';
+
 import 'package:innovate_2/resources/database.dart';
 import 'package:innovate_2/screens/add_question.dart';
-import 'package:innovate_2/widgets/blue_button.dart';
-import 'package:provider/provider.dart';
+
 import 'package:uuid/uuid.dart';
 
 class CreateQuiz extends StatefulWidget {
@@ -21,9 +19,7 @@ class _CreateQuizState extends State<CreateQuiz> {
 
   bool isLoading = false;
   String? quizId;
-  String selectedValue = 'FE';
-  String selectedDivision = 'C1';
-  String selectedCourse = "Economics";
+
   createQuiz(String course, String year, String division) {
     quizId = Uuid().v1();
     if (_formKey.currentState!.validate()) {
@@ -54,7 +50,9 @@ class _CreateQuizState extends State<CreateQuiz> {
   Widget build(BuildContext context) {
     // Teacher _teacher =
     //     Provider.of<TeacherProvider>(context).getUser();
-
+    String selectedValue = 'FE';
+    String selectedDivision = 'C1';
+    String selectedCourse = "Economics";
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -71,11 +69,9 @@ class _CreateQuizState extends State<CreateQuiz> {
       body: Form(
         key: _formKey,
         child: Container(
-          padding: EdgeInsets.symmetric(
-              horizontal: 24, vertical: 16), // Add vertical spacing
+          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16), // Add vertical spacing
           child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start, // Align fields to the left
+            crossAxisAlignment: CrossAxisAlignment.start, // Align fields to the left
             children: [
               TextFormField(
                 validator: (val) =>
@@ -220,11 +216,22 @@ class _CreateQuizState extends State<CreateQuiz> {
                 ),
               ),
               Spacer(),
-              BlueButton(
+              GestureDetector(
                 onTap: () {
                   createQuiz(selectedCourse, selectedValue, selectedDivision);
                 },
-                text: "Create Quiz",
+                child: Container(
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                  decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(30)),
+                  child: Text(
+                    "Create Quiz",
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ),
               ),
               SizedBox(
                 height: 60,
