@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:innovate_2/global/global_var.dart';
 import 'package:innovate_2/resources/auth_methods.dart';
+import 'package:innovate_2/screens/splash_screen.dart';
 import 'package:innovate_2/screens/teacher_homepage.dart';
 import 'package:innovate_2/screens/teacher_signup.dart';
 import 'package:innovate_2/widgets/utils.dart';
