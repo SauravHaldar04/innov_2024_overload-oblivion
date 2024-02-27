@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:innovate_2/models/student_model.dart';
+import 'package:innovate_2/models/teacher_model.dart';
 
 class AuthMethods {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -47,6 +48,63 @@ class AuthMethods {
   }
 
   Future<String> loginStudent({
+    required String email,
+    required String password,
+  }) async {
+    FirebaseAuth _auth = FirebaseAuth.instance;
+    FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    String res = "Some error occured";
+    try {
+      if (email.isNotEmpty && password.isNotEmpty) {
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        res = "Success";
+      } else {
+        res = 'Please enter all the fields';
+      }
+      return res;
+    } catch (err) {
+      return err.toString();
+    }
+  }
+    Future<String> signUpTeacher(
+      {required String email,
+      required String password,
+      required String teachername,
+      required String course,
+      required String designation}) async {
+    String res = "Some error occured";
+    try {
+      if (email.isNotEmpty &&
+          password.isNotEmpty &&
+          teachername.isNotEmpty &&
+          course.isNotEmpty &&
+          designation.isNotEmpty) {
+        UserCredential teacherCredential = await _auth
+            .createUserWithEmailAndPassword(email: email, password: password);
+        print(teacherCredential.user!.uid);
+
+        Teacher teacher = Teacher(
+          uid: teacherCredential.user!.uid,
+          email: email,
+          teachername: teachername,
+          course: course,
+          designation: designation,
+        );
+        await _firestore
+            .collection('teachers')
+            .doc(teacherCredential.user!.uid)
+            .set(teacher.toJson());
+        res = "Success";
+      } else {
+        res = 'Please enter all the fields';
+      }
+      return res;
+    } catch (err) {
+      return err.toString();
+    }
+  }
+   Future<String> loginTeacher({
     required String email,
     required String password,
   }) async {
