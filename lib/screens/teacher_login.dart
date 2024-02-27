@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:innovate_2/global/global_var.dart';
+import 'package:innovate_2/screens/teacher_homepage.dart';
 import 'package:innovate_2/screens/teacher_signup.dart';
 
 class TeacherLogin extends StatelessWidget {
@@ -41,10 +42,10 @@ class TeacherLogin extends StatelessWidget {
               const SizedBox(height: 45.0),
               ElevatedButton(
                 onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //         builder: (_) => TeacherDashboard())
-                  //         );
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                          builder: (_) => const TeacherHomepage())
+                          );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromRGBO(31, 68, 255, 0.776),
