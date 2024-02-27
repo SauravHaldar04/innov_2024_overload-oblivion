@@ -7,6 +7,7 @@ class Student {
   final String year;
   final String division;
   final String course;
+  final List quizID;
 
   Student({
     required this.uid,
@@ -15,6 +16,7 @@ class Student {
     required this.year,
     required this.division,
     required this.course,
+    required this.quizID ,
   });
 
   Map<String, dynamic> toJson() {
@@ -25,6 +27,7 @@ class Student {
       'year': year,
       'division': division,
       'course': course,
+      'quizData':quizID
     };
   }
 
@@ -38,6 +41,7 @@ class Student {
       year: snapshot['year'],
       division: snapshot['division'],
       course: snapshot['course'],
+      quizID: snapshot['quizData']
     );
   }
 }

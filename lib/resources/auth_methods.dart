@@ -32,6 +32,7 @@ class AuthMethods {
           year: year,
           course: course,
           division: division,
+          quizID: [],
         );
         await _firestore
             .collection('students')
@@ -123,5 +124,27 @@ class AuthMethods {
     } catch (err) {
       return err.toString();
     }
+  }
+  
+  Future<Teacher> getTeacherDetails() async {
+    User currentUser = _auth.currentUser!;
+    print(currentUser.email);
+    DocumentSnapshot snap =
+        await _firestore.collection('teachers').doc(currentUser.uid).get();
+
+    // print((snap.data() as Map<String, dynamic>)['username'] as String);
+
+    return Teacher.fromSnap(snap);
+  }
+  
+  Future<Student> getStudentDetails() async {
+    User currentUser = _auth.currentUser!;
+    print(currentUser.email);
+    DocumentSnapshot snap =
+        await _firestore.collection('students').doc(currentUser.uid).get();
+
+    // print((snap.data() as Map<String, dynamic>)['username'] as String);
+
+    return Student.fromSnap(snap);
   }
 }
