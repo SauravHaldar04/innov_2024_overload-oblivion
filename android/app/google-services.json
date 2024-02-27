@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "788446907943",
+    "project_id": "overload-oblivion-innov8",
+    "storage_bucket": "overload-oblivion-innov8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788446907943:android:f5c762644ba703e2874802",
+        "android_client_info": {
+          "package_name": "com.example.innovate_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJzbaQid8rImWyAds5rrSGBEC9kv3qvCk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
