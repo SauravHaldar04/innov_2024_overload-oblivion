@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:innovate_2/global/global_var.dart';
+import 'package:innovate_2/providers/teacher_provider.dart';
 import 'package:innovate_2/resources/database.dart';
 import 'package:innovate_2/screens/ai_generated_quiz_input.dart';
 import 'package:innovate_2/screens/create_quiz.dart';
@@ -56,13 +57,18 @@ class _TeacherHomepageState extends State<TeacherHomepage> {
   }
 
   @override
-  void initState() {
+  Future<void> initState() async {
     databaseService.getQuizData().then((value) {
       quizStream = value;
       setState(() {});
     });
+    //addData();
     super.initState();
   }
+
+  // addData() async {
+  //   TeacherProvider _teacherProvider = 
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +202,11 @@ class QuizTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => QuizPlay(id)));
+          context,
+          MaterialPageRoute(
+            builder: (context) => QuizPlay(id),
+          ),
+        );
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 24),

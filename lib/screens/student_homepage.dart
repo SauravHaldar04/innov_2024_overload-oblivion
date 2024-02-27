@@ -36,15 +36,18 @@ class _StudentHomepageState extends State<StudentHomepage> {
                         physics: ClampingScrollPhysics(),
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
-                          return QuizTile(
-                            noOfQuestions: snapshot.data!.docs.length,
-                            imageUrl:
-                                snapshot.data!.docs[index].data()['quizImgUrl'],
-                            title:
-                                snapshot.data!.docs[index].data()['quizTitle'],
-                            description:
-                                snapshot.data!.docs[index].data()['quizDesc'],
-                            id: snapshot.data!.docs[index].data()['id'],
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: QuizTile(
+                              noOfQuestions: snapshot.data!.docs.length,
+                              imageUrl: snapshot.data!.docs[index]
+                                  .data()['quizImgUrl'],
+                              title: snapshot.data!.docs[index]
+                                  .data()['quizTitle'],
+                              description:
+                                  snapshot.data!.docs[index].data()['quizDesc'],
+                              id: snapshot.data!.docs[index].data()['id'],
+                            ),
                           );
                         });
               },
