@@ -71,7 +71,7 @@ class _CreateQuizState extends State<CreateQuiz> {
       body: Form(
         key: _formKey,
         child: Container(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
               horizontal: 24, vertical: 16), // Add vertical spacing
           child: Column(
             crossAxisAlignment:
@@ -86,23 +86,23 @@ class _CreateQuizState extends State<CreateQuiz> {
                   quizImgUrl = val;
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16, // Add vertical spacing
               ),
               TextFormField(
                 validator: (val) => val!.isEmpty ? "Enter Quiz Title" : null,
-                decoration: InputDecoration(hintText: "Quiz Title"),
+                decoration: const InputDecoration(hintText: "Quiz Title"),
                 onChanged: (val) {
                   quizTitle = val;
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16, // Add vertical spacing
               ),
               TextFormField(
                 validator: (val) =>
                     val!.isEmpty ? "Enter Quiz Description" : null,
-                decoration: InputDecoration(hintText: "Quiz Description"),
+                decoration: const InputDecoration(hintText: "Quiz Description"),
                 onChanged: (val) {
                   quizDesc = val;
                 },
