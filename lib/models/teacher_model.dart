@@ -6,14 +6,15 @@ class Teacher {
   final String teachername;
   final String course;
   final String designation;
+  final List quizId;
 
-  Teacher({
-    required this.uid,
-    required this.email,
-    required this.teachername,
-    required this.designation,
-    required this.course,
-  });
+  Teacher(
+      {required this.uid,
+      required this.email,
+      required this.teachername,
+      required this.designation,
+      required this.course,
+      required this.quizId});
 
   Map<String, dynamic> toJson() {
     return {
@@ -22,6 +23,7 @@ class Teacher {
       'email': email,
       'designation': designation,
       'course': course,
+      'quizId': quizId
     };
   }
 
@@ -29,11 +31,11 @@ class Teacher {
     var snapshot = snap.data() as Map<String, dynamic>;
     print(snapshot.toString());
     return Teacher(
-      uid: snapshot['uid'],
-      email: snapshot['email'],
-      teachername: snapshot['teachername'],
-      designation: snapshot['designation'],
-      course: snapshot['course'],
-    );
+        uid: snapshot['uid'],
+        email: snapshot['email'],
+        teachername: snapshot['teachername'],
+        designation: snapshot['designation'],
+        course: snapshot['course'],
+        quizId: snapshot['quizId']);
   }
 }

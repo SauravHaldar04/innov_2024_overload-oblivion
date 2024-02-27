@@ -91,6 +91,7 @@ class AuthMethods {
           teachername: teachername,
           course: course,
           designation: designation,
+          quizId: [],
         );
         await _firestore
             .collection('teachers')

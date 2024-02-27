@@ -49,10 +49,11 @@ class _CreateQuizState extends State<CreateQuiz> {
 
   @override
   Widget build(BuildContext context) {
-    Teacher _teacher =
-        Provider.of<TeacherProvider>(context).getUser();
+    // Teacher _teacher =
+    //     Provider.of<TeacherProvider>(context).getUser();
     String selectedValue = 'FE';
     String selectedDivision = 'C1';
+    String selectedCourse = "Economics";
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -179,10 +180,46 @@ class _CreateQuizState extends State<CreateQuiz> {
                   },
                 ),
               ),
+              Text("Select Course"),
+              Container(
+                height: 70,
+                child: DropdownButton<String>(
+                  elevation: 6,
+                  value: selectedCourse,
+                  items: const <DropdownMenuItem<String>>[
+                    DropdownMenuItem(
+                      value: "Economics",
+                      child: Text("Economics"),
+                    ),
+                    DropdownMenuItem(
+                      value: "History",
+                      child: Text("History"),
+                    ),
+                    DropdownMenuItem(
+                      value: "Computer Science",
+                      child: Text("Computer Science"),
+                    ),
+                    DropdownMenuItem(
+                      value: "Political Science",
+                      child: Text("Political Science"),
+                    ),
+                    DropdownMenuItem(
+                      value: "Literature",
+                      child: Text("Literature"),
+                    ),
+                  ],
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedCourse = newValue!;
+                      // Perform actions based on the selected value
+                    });
+                  },
+                ),
+              ),
               Spacer(),
               GestureDetector(
                 onTap: () {
-                  createQuiz(_teacher.course,selectedValue,selectedDivision);
+                  createQuiz(selectedCourse, selectedValue, selectedDivision);
                 },
                 child: Container(
                   alignment: Alignment.center,
