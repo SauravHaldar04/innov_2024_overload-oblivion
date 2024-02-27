@@ -7,6 +7,9 @@ class GlobalVariables {
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter);
   static const fontsize = 33;
+  
+
+ 
   // static String mongoUrl 
       
 }

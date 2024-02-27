@@ -47,7 +47,7 @@ class TeacherLogin extends StatelessWidget {
                   //         );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(255, 98, 31, 1),
+                  backgroundColor: const Color.fromRGBO(31, 68, 255, 0.776),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
@@ -154,7 +154,7 @@ class TeacherLogin extends StatelessWidget {
                     child: const Text(
                       'Create an Account',
                       style: TextStyle(
-                        color: Color.fromRGBO(255, 98, 31, 1),
+                        color: Color.fromRGBO(31, 68, 255, 0.776),
                       ),
                     ),
                   ),

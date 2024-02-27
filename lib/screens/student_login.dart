@@ -32,10 +32,10 @@ class StudentLogin extends StatelessWidget {
               const TextField(
                 decoration: InputDecoration(
                   labelText: 'Student Email',
-                  floatingLabelStyle: TextStyle(color: Colors.orange),
-                  focusColor: Colors.orange,
+                  floatingLabelStyle: TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
+                  focusColor: Color.fromRGBO(31, 68, 255, 0.776),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.orange),
+                    borderSide: BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
                   ),
                 ),
               ),
@@ -44,10 +44,10 @@ class StudentLogin extends StatelessWidget {
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  floatingLabelStyle: TextStyle(color: Colors.orange),
-                  focusColor: Colors.orange,
+                  floatingLabelStyle: TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
+                  focusColor: Color.fromRGBO(31, 68, 255, 0.776),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.orange),
+                    borderSide: BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
                   ),
                 ),
               ),
@@ -59,7 +59,7 @@ class StudentLogin extends StatelessWidget {
                     //       );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(255, 98, 31, 1),
+                  backgroundColor: Color.fromRGBO(31, 68, 255, 0.776),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
