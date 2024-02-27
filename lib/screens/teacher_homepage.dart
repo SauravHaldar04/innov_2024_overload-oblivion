@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:innovate_2/global/global_var.dart';
 import 'package:innovate_2/resources/database.dart';
+import 'package:innovate_2/screens/ai_generated_quiz_input.dart';
 import 'package:innovate_2/screens/create_quiz.dart';
 import 'package:innovate_2/screens/quiz_play.dart';
 import 'package:innovate_2/screens/user_type_selec.dart';
@@ -162,9 +163,9 @@ class _TeacherHomepageState extends State<TeacherHomepage> {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => CreateQuiz()));
           } else {
-            // Navigator.push(
-            //     context, MaterialPageRoute(builder: (context) => GeneratePage())
-            //     );
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => AIQuizInputPage())
+                );
           }
         },
         child: Icon(isCreateMode ? Icons.add : Icons.document_scanner), // Change icon based on mode
