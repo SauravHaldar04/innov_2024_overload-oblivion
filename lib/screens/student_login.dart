@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:innovate_2/global/global_var.dart';
 import 'package:innovate_2/resources/auth_methods.dart';
+import 'package:innovate_2/screens/student_homepage.dart';
 import 'package:innovate_2/screens/student_signup.dart';
 import 'package:innovate_2/widgets/utils.dart';
 
@@ -31,7 +32,7 @@ class _StudentLoginState extends State<StudentLogin> {
       } else {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => const Scaffold(),
+            builder: (context) => const StudentHomepage(),
           ),
         );
       }
