@@ -32,7 +32,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
       } else {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => const Scaffold(),
+            builder: (context) => const TeacherHomepage(),
           ),
         );
       }
