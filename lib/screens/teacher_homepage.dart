@@ -17,7 +17,8 @@ class TeacherHomepage extends StatefulWidget {
 }
 
 class _TeacherHomepageState extends State<TeacherHomepage> {
-  Stream? quizStream;
+ Stream? quizStream;
+ bool isCreateMode = true;
 
   DatabaseService databaseService = new DatabaseService();
 
@@ -95,7 +96,6 @@ class _TeacherHomepageState extends State<TeacherHomepage> {
         elevation: 0.0,
         backgroundColor: Colors.transparent,
       ),
-
       drawer: Drawer(
               child: ListView(
                 padding: EdgeInsets.zero,
@@ -163,7 +163,7 @@ class _TeacherHomepageState extends State<TeacherHomepage> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (isCreateMode) {
