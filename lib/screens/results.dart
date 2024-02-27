@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Results extends StatefulWidget {
   final int total, correct, incorrect, notattempted;
@@ -17,14 +18,28 @@ class _ResultsState extends State<Results> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-            Text("${widget.correct}/ ${widget.total}", style: TextStyle(fontSize: 25),),
+              Text("${widget.correct}/ ${widget.total}", style: TextStyle(fontSize: 25),),
               SizedBox(height: 5,),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Text(
-                    "you answered ${widget.correct} answers correctly and ${widget.incorrect} answeres incorrectly",
-                textAlign: TextAlign.center,),
-
+                  "You answered ${widget.correct} answers correctly and ${widget.incorrect} answers incorrectly",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(height: 24,),
+              SfCircularChart(
+                series: <CircularSeries>[
+                  PieSeries<ChartData, String>(
+                    dataSource: <ChartData>[
+                      ChartData('Correct', widget.correct),
+                      ChartData('Incorrect', widget.incorrect),
+                      ChartData('Not Attempted', widget.notattempted),
+                    ],
+                    xValueMapper: (ChartData data, _) => data.x,
+                    yValueMapper: (ChartData data, _) => data.y,
+                  ),
+                ],
               ),
               SizedBox(height: 24,),
               GestureDetector(
@@ -40,9 +55,16 @@ class _ResultsState extends State<Results> {
                   child: Text("Go to home", style: TextStyle(color: Colors.white, fontSize: 19),),
                 ),
               )
-          ],),
+            ],
+          ),
         ),
       ),
     );
   }
+}
+
+class ChartData {
+  ChartData(this.x, this.y);
+  final String x;
+  final int y;
 }

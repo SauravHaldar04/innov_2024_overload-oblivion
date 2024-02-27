@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:innovate_2/models/question_model.dart';
 import 'package:innovate_2/resources/database.dart';
+import 'package:innovate_2/screens/results.dart';
 import 'package:innovate_2/widgets/widgets.dart';
 import 'package:innovate_2/widgets/quiz_play_widgets.dart';
 
@@ -136,7 +137,14 @@ class _QuizPlayState extends State<QuizPlay> {
                   ],
                 ),
               ),
+              
           ),
+          floatingActionButton: FloatingActionButton(
+            child:Icon(Icons.check),
+            onPressed: (){
+            
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Results(incorrect: _incorrect, total: total, correct: _correct, notattempted: 0 )));
+          }),
     );
   }
 }
