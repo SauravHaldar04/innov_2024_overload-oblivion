@@ -16,11 +16,11 @@ class AIQuizInputPage extends StatelessWidget {
           children: [
             
 
-            // ...
+           
 
             ElevatedButton(
               onPressed: () async {
-                final response = await http.get(Uri.parse('https://84ef-2409-4080-1207-ae34-dcdd-1905-50ef-7b4c.ngrok-free.app/categories'));
+                final response = await http.get(Uri.parse('https://0c38-2409-4080-1207-ae34-dcdd-1905-50ef-7b4c.ngrok-free.app/categories'));
                 if (response.statusCode == 200) {
                   final decodedResponse = json.decode(response.body);
                   final result = decodedResponse.toString();

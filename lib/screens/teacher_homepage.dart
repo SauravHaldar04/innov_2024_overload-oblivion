@@ -74,7 +74,6 @@ class _TeacherHomepageState extends State<TeacherHomepage> {
 
   @override
   Widget build(BuildContext context) {
-    bool isCreateMode = true;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
