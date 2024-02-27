@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:innovate_2/global/global_var.dart';
+import 'package:innovate_2/resources/auth_methods.dart';
+import 'package:innovate_2/screens/teacher_login.dart';
+import 'package:innovate_2/widgets/utils.dart';
 
 class TeacherSignup extends StatefulWidget {
   const TeacherSignup({super.key});
@@ -9,6 +13,36 @@ class TeacherSignup extends StatefulWidget {
 }
 
 class _TeacherSignupState extends State<TeacherSignup> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _cpassController = TextEditingController();
+  TextEditingController _designationController = TextEditingController();
+  bool isLoading = false;
+  Future<void> signUpTeacher() async {
+    setState(() {
+      isLoading = true;
+    });
+    String res = await AuthMethods().signUpTeacher(
+        email: _emailController.text,
+        password: _passwordController.text,
+        teachername: _nameController.text,
+        course: selectedValue,
+        designation: _designationController.text);
+    setState(() {
+      isLoading = false;
+    });
+    if (res != 'Success') {
+      showSnackBar(context, res);
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const TeacherLogin(),
+        ),
+      );
+    }
+  }
+
   String selectedValue = "Economics";
 
   @override
@@ -34,71 +68,73 @@ class _TeacherSignupState extends State<TeacherSignup> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 120.0),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(
                     labelText: 'Name',
-                    floatingLabelStyle: TextStyle(
-                        color: Color.fromRGBO(31, 68, 255, 0.776)),
+                    floatingLabelStyle:
+                        TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
                     focusColor: Color.fromRGBO(31, 68, 255, 0.776),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Color.fromRGBO(31, 68, 255, 0.776)),
+                      borderSide:
+                          BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
                     ),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                const TextField(
-                  obscureText: false,
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Color.fromRGBO(31, 68, 255, 0.776)),
+                      borderSide:
+                          BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
                     ),
                     labelText: 'Teacher Email',
-                    floatingLabelStyle: TextStyle(
-                        color: Color.fromRGBO(31, 68, 255, 0.776)),
+                    floatingLabelStyle:
+                        TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
                   ),
                 ),
-
                 const SizedBox(
                   height: 16,
                 ),
-                const TextField(
+                TextField(
+                  controller: _passwordController,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Color.fromRGBO(31, 68, 255, 0.776)),
+                      borderSide:
+                          BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
                     ),
                     labelText: 'Password',
-                    floatingLabelStyle: TextStyle(
-                        color: Color.fromRGBO(31, 68, 255, 0.776)),
+                    floatingLabelStyle:
+                        TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                const TextField(
+                TextField(
+                  controller: _cpassController,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Color.fromRGBO(31, 68, 255, 0.776)),
+                      borderSide:
+                          BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
                     ),
                     labelText: 'Confirm Password',
-                    floatingLabelStyle: TextStyle(
-                        color: Color.fromRGBO(31, 68, 255, 0.776)),
+                    floatingLabelStyle:
+                        TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                const TextField(
-                  obscureText: false,
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _designationController,
+                  decoration: const InputDecoration(
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Color.fromRGBO(31, 68, 255, 0.776)),
+                      borderSide:
+                          BorderSide(color: Color.fromRGBO(31, 68, 255, 0.776)),
                     ),
                     labelText: 'Designation',
-                    floatingLabelStyle: TextStyle(
-                        color: Color.fromRGBO(31, 68, 255, 0.776)),
+                    floatingLabelStyle:
+                        TextStyle(color: Color.fromRGBO(31, 68, 255, 0.776)),
                   ),
                 ),
                 const SizedBox(height: 16.0),
@@ -141,26 +177,26 @@ class _TeacherSignupState extends State<TeacherSignup> {
                     },
                   ),
                 ),
-
                 const SizedBox(height: 45.0),
                 ElevatedButton(
-                  onPressed: () {
-                    // Perform student login logic here
+                  onPressed: () async {
+                    await signUpTeacher();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        const Color.fromRGBO(31, 68, 255, 0.776),
+                    backgroundColor: const Color.fromRGBO(31, 68, 255, 0.776),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     minimumSize: const Size(350.0, 45.0),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: isLoading
+                        ? const CircularProgressIndicator()
+                        : const Text(
+                            'Sign Up',
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
                   ),
                 ),
                 const SizedBox(height: 50.0),

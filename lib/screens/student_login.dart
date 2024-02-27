@@ -4,17 +4,28 @@ import 'package:innovate_2/resources/auth_methods.dart';
 import 'package:innovate_2/screens/student_signup.dart';
 import 'package:innovate_2/widgets/utils.dart';
 
-class StudentLogin extends StatelessWidget {
+class StudentLogin extends StatefulWidget {
   const StudentLogin({super.key});
 
+  @override
+  State<StudentLogin> createState() => _StudentLoginState();
+}
+
+class _StudentLoginState extends State<StudentLogin> {
   @override
   Widget build(BuildContext context) {
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
-
+    bool isLoading = false;
     Future<void> loginStudent() async {
+      setState(() {
+        isLoading = true;
+      });
       String res = await AuthMethods().loginStudent(
           email: _emailController.text, password: _passwordController.text);
+      setState(() {
+        isLoading = false;
+      });
       if (res != 'Success') {
         showSnackBar(context, res);
       } else {
@@ -85,15 +96,17 @@ class StudentLogin extends StatelessWidget {
                   ),
                   minimumSize: const Size(350.0, 45.0),
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 19,
-                        fontWeight: FontWeight.w700),
-                  ),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: isLoading
+                      ? const CircularProgressIndicator()
+                      : const Text(
+                          'Login',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 19,
+                              fontWeight: FontWeight.w700),
+                        ),
                 ),
               ),
               const SizedBox(height: 45.0),

@@ -16,8 +16,11 @@ class _StudentSignupState extends State<StudentSignup> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _cpassController = TextEditingController();
-
+  bool isLoading = false;
   Future<void> signUpStudent() async {
+    setState(() {
+      isLoading = true;
+    });
     String res = await AuthMethods().signUpStudent(
         email: _emailController.text,
         password: _passwordController.text,
@@ -25,7 +28,9 @@ class _StudentSignupState extends State<StudentSignup> {
         year: selectedValue,
         course: selectedCourse,
         division: selectedDivision);
-
+    setState(() {
+      isLoading = false;
+    });
     if (res != 'Success') {
       showSnackBar(context, res);
     } else {
@@ -251,15 +256,17 @@ class _StudentSignupState extends State<StudentSignup> {
                     ),
                     minimumSize: const Size(350.0, 45.0),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 19,
-                          fontWeight: FontWeight.w700),
-                    ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: isLoading
+                        ? const CircularProgressIndicator()
+                        : const Text(
+                            'Sign Up',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 19,
+                                fontWeight: FontWeight.w700),
+                          ),
                   ),
                 ),
                 const SizedBox(height: 45.0),

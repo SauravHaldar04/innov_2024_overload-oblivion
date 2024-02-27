@@ -1,14 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:innovate_2/global/global_var.dart';
+import 'package:innovate_2/resources/auth_methods.dart';
 import 'package:innovate_2/screens/teacher_homepage.dart';
 import 'package:innovate_2/screens/teacher_signup.dart';
+import 'package:innovate_2/widgets/utils.dart';
 
-class TeacherLogin extends StatelessWidget {
+class TeacherLogin extends StatefulWidget {
   const TeacherLogin({super.key});
 
   @override
+  State<TeacherLogin> createState() => _TeacherLoginState();
+}
+
+class _TeacherLoginState extends State<TeacherLogin> {
+  @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    TextEditingController _emailController = TextEditingController();
+    TextEditingController _passwordController = TextEditingController();
+    bool isLoading = false;
+    Future<void> loginTeacher() async {
+      setState(() {
+        isLoading = true;
+      });
+      String res = await AuthMethods().loginTeacher(
+          email: _emailController.text, password: _passwordController.text);
+      setState(() {
+        isLoading = false;
+      });
+      if (res != 'Success') {
+        showSnackBar(context, res);
+      } else {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const Scaffold(),
+          ),
+        );
+      }
+    }
+
+    return Scaffold(
       appBar: AppBar(
         title: const Text(
           'Teacher Login',
@@ -27,25 +57,24 @@ class TeacherLogin extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 120.0),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(
                   labelText: 'Teacher Email',
                 ),
               ),
               const SizedBox(height: 16.0),
-              const TextField(
+              TextField(
+                controller: _passwordController,
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Password',
                 ),
               ),
               const SizedBox(height: 45.0),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                          builder: (_) => const TeacherHomepage())
-                          );
+                onPressed: () async {
+                  await loginTeacher();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromRGBO(31, 68, 255, 0.776),
@@ -54,9 +83,9 @@ class TeacherLogin extends StatelessWidget {
                   ),
                   minimumSize: const Size(350.0, 45.0),
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Text(
+                child:  Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child:isLoading?const CircularProgressIndicator(): const Text(
                     'Login',
                     style: TextStyle(
                         color: Colors.white,
@@ -94,10 +123,7 @@ class TeacherLogin extends StatelessWidget {
               ),
               const SizedBox(height: 50.0),
               ElevatedButton(
-                onPressed: () {
-                  
-                    
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
@@ -116,8 +142,7 @@ class TeacherLogin extends StatelessWidget {
                             image: DecorationImage(
                                 image: AssetImage('assets/images/Google.png'),
                                 fit: BoxFit.cover),
-                          )
-                          ),
+                          )),
                       const SizedBox(
                         width: 49,
                       ),
@@ -147,9 +172,7 @@ class TeacherLogin extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const TeacherSignup()
-                              )
-                              );
+                              builder: (context) => const TeacherSignup()));
                       // Perform navigation logic here
                     },
                     child: const Text(
