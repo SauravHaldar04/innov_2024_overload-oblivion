@@ -64,7 +64,7 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
             const SizedBox(height: 32),
             ElevatedButton(
               onPressed: () {
-                // TODO: Add logic to handle the question and answer inputs
+                  
               },
               child: const Text('Submit'),
             ),
