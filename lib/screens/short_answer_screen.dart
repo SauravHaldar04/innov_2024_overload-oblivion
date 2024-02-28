@@ -110,6 +110,7 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
+      allowMultiple: false, // Allow only single file selection
     );
 
     if (result != null) {
@@ -124,7 +125,7 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Short Questions',
+          'Short Questions and Essays',
           style: TextStyle(
               color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold),
         ),
@@ -141,29 +142,56 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
             const SizedBox(height: 32),
             Text('Enter a question:', style: TextStyle(fontSize: 16)),
             const SizedBox(height: 8),
-            TextField(
-              controller: questionController,
-              decoration: InputDecoration(
-                labelText: 'Question',
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[200], // Add greyish fill color
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: TextField(
+                controller: questionController,
+                decoration: InputDecoration(
+                  labelText: 'Question',
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.all(8),
+                ),
               ),
             ),
             const SizedBox(height: 16),
             Text('Enter the corresponding answer:', style: TextStyle(fontSize: 16)),
             const SizedBox(height: 8),
-            TextField(
-              controller: answerController,
-              decoration: InputDecoration(
-                labelText: 'Answer',
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[200], // Add greyish fill color
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: TextField(
+                controller: answerController,
+                decoration: InputDecoration(
+                  labelText: 'Answer',
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.all(8),
+                ),
               ),
             ),
             const SizedBox(height: 16),
             Text('Enter an essay:', style: TextStyle(fontSize: 16)),
             const SizedBox(height: 8),
-            TextField(
-              controller: essayController,
-              maxLines: 5,
-              decoration: InputDecoration(
-                labelText: 'Essay',
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[200], // Add greyish fill color
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: TextField(
+                controller: essayController,
+                maxLines: 5,
+                decoration: InputDecoration(
+                  labelText: 'Essay',
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.all(8),
+                ),
               ),
             ),
             const SizedBox(height: 16),
@@ -179,9 +207,17 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
                 style: TextStyle(fontSize: 16),
               ),
             const SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: (){submitQuestionAndAnswer();},
-              child: const Text('Submit'),
+            Center(
+              
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromRGBO(17, 84, 218, 1), // Set button background color
+                  shadowColor: Colors.black54, // Set button text color
+                  minimumSize: Size(double.infinity, 50),
+                ),
+                onPressed: (){submitQuestionAndAnswer();},
+                child: const Text('Submit',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 19),),
+              ),
             ),
             // const SizedBox(height: 16),
             // Text('Score: $score', style: TextStyle(fontSize: 16)),
