@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:innovate_2/resources/database.dart';
+import 'package:innovate_2/screens/assignments.dart';
 
 import 'package:innovate_2/screens/quiz_play.dart';
 import 'package:innovate_2/screens/short_answer_screen.dart';
@@ -178,7 +179,7 @@ class _StudentHomepageState extends State<StudentHomepage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ShortAnswerScreen(),
+                builder: (context) => Assignments(),
               ),
             );
           }

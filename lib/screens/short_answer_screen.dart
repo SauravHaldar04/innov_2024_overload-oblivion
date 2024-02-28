@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
@@ -32,31 +32,26 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
     super.dispose();
   }
 
-  Future<void> submitQuestionAndAnswer() async {
-    final question = questionController.text;
-    final answer = answerController.text;
-    final essay = essayController.text;
-
+  Future essayViaScript() async {
     try {
       final response = await http.post(
-        Uri.parse('${GlobalVariables.Url}/grade'),
-        headers: <String, String>{
-          'Content-Type': 'application/json'
-        },
+        Uri.parse('${GlobalVariables.Url}/predict'),
+        headers: <String, String>{'Content-Type': 'application/json'},
         body: jsonEncode(<String, dynamic>{
-          'question': questionController.text,
-          'answer': answerController.text,
+          'text': essayController.text,
         }),
       );
 
       if (response.statusCode == 200) {
         // Display success message
-        score = jsonDecode(response.body)['score'];
+        print(jsonDecode(response.body));
+         score = jsonDecode(response.body)['score'];
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
             title: const Text('Success'),
-            content: Text('Question, answer, and essay submitted successfully.\nYou have got score: $score'),
+            content: Text(
+                'Essay submitted successfully.\nYou have got score: $score'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -74,7 +69,8 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
           context: context,
           builder: (context) => AlertDialog(
             title: const Text('Error'),
-            content: const Text('Failed to submit question, answer, and essay.'),
+            content:
+                const Text('Failed to submit question, answer, and essay.'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -92,7 +88,105 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Error'),
-          content: const Text('An error occurred while submitting question, answer, and essay.'),
+          content: const Text(
+              'An error occurred while submitting question, answer, and essay.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  Future uploadViaScript() async {
+    var dio = Dio();
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      File file = File(result.files.single.path ?? " ");
+      String fileName = file.path.split('/').last;
+      String filePath = file.path;
+      FormData data = FormData.fromMap(
+          {'file': await MultipartFile.fromFile(filePath, filename: fileName)});
+      try {
+        var response = await dio.post("${GlobalVariables.Url}/predict",
+            data: data, onSendProgress: (int sent, int total) {
+          print('$sent  $total');
+        });
+      } catch (e) {
+        print(e.toString());
+      }
+    } else {
+      print("Response is null");
+    }
+  }
+
+  Future<void> submitQuestionAndAnswer() async {
+    final question = questionController.text;
+    final answer = answerController.text;
+    final essay = essayController.text;
+
+    try {
+      final response = await http.post(
+        Uri.parse('${GlobalVariables.Url}/grade'),
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: jsonEncode(<String, dynamic>{
+          'question': questionController.text,
+          'answer': answerController.text,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        // Display success message
+        score = jsonDecode(response.body)['score'];
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Success'),
+            content: Text(
+                'Question, answer, and essay submitted successfully.\nYou have got score: $score'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+        setState(() {});
+      } else {
+        // Display error message
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Error'),
+            content:
+                const Text('Failed to submit question, answer, and essay.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    } catch (e) {
+      // Display error message
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              'An error occurred while submitting question, answer, and essay.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -148,7 +242,8 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            Text('Enter the corresponding answer:', style: TextStyle(fontSize: 16)),
+            Text('Enter the corresponding answer:',
+                style: TextStyle(fontSize: 16)),
             const SizedBox(height: 8),
             TextField(
               controller: answerController,
@@ -180,7 +275,9 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
               ),
             const SizedBox(height: 32),
             ElevatedButton(
-              onPressed: (){submitQuestionAndAnswer();},
+              onPressed: () {
+                submitQuestionAndAnswer();
+              },
               child: const Text('Submit'),
             ),
             // const SizedBox(height: 16),
