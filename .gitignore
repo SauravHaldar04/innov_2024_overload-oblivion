@@ -11,7 +11,7 @@
 migrate_working_dir/
 lib/server/.env
 lib/server/node_modules
-
+lib/screens/secrets.dart
 # IntelliJ related
 *.iml
 *.ipr

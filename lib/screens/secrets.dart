@@ -1,0 +1,1 @@
+const openAPIKey= 'AIzaSyDN75ihrCa2m0elIiNZZqkhfjDfK7k_7wY';

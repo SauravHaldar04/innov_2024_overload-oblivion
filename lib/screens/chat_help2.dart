@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:http/http.dart' as http;
 import 'package:innovate_2/screens/student_homepage.dart';
+import 'secrets.dart';
 
 
 class chatHelp2 extends StatefulWidget {
@@ -18,7 +19,7 @@ class _chatHelp2State extends State<chatHelp2> {
 
   List <ChatMessage> allMessages=[];
   List <ChatUser> typing=[];
-  final ourUrl='https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyDN75ihrCa2m0elIiNZZqkhfjDfK7k_7wY';
+  final ourUrl='https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=$openAPIKey';
   final header = {
     "Content-Type":"application/json"
   };

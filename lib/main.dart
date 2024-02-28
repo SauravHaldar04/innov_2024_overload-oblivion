@@ -6,6 +6,8 @@ import 'package:innovate_2/providers/teacher_provider.dart';
 import 'package:innovate_2/screens/short_answer_screen.dart';
 
 import 'package:innovate_2/screens/splash_screen.dart';
+import 'package:innovate_2/screens/student_homepage.dart';
+import 'package:innovate_2/screens/teacher_homepage.dart';
 import 'package:innovate_2/screens/user_type_selec.dart';
 
 import 'package:provider/provider.dart';
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Inter',
           primarySwatch: Colors.blue,
         ),
-        home:  const SplashScreen(),
+        home:  const StudentHomepage(),
       ),
     );
   }
