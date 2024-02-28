@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:innovate_2/screens/chat_help1.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Results extends StatefulWidget {
@@ -54,7 +55,14 @@ class _ResultsState extends State<Results> {
                   ),
                   child: Text("Go to home", style: TextStyle(color: Colors.white, fontSize: 19),),
                 ),
-              )
+              ),
+              SizedBox(height: 16,),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ChatLoadScreen()));
+                },
+                child: Text('Need for improvements?'),
+              ),
             ],
           ),
         ),
@@ -67,4 +75,18 @@ class ChartData {
   ChartData(this.x, this.y);
   final String x;
   final int y;
+}
+
+class NextScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Next Screen'),
+      ),
+      body: Center(
+        child: Text('This is the next screen'),
+      ),
+    );
+  }
 }
