@@ -1,1 +1,1 @@
-const openAPIKey= 'AIzaSyDN75ihrCa2m0elIiNZZqkhfjDfK7k_7wY';
+const openAPIKey= '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';
