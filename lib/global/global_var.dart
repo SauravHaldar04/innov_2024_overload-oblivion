@@ -9,5 +9,5 @@ class GlobalVariables {
   static const fontsize = 33;
 
   static String Url =
-      'https://f38e-2402-3a80-4194-875a-9b67-184f-fee2-36c1.ngrok-free.app';
+      'https://c7a7-2402-3a80-4194-875a-985b-6ff-fb0-1c5c.ngrok-free.app';
 }

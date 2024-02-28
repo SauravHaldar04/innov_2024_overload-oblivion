@@ -26,6 +26,7 @@ class UserTypeSelectionPage extends StatelessWidget {
             SizedBox(height: MediaQuery.of(context).size.height / 10),
               const CircleAvatar(
                 radius: 150,
+                backgroundImage: AssetImage('assets/images/sc9.png'),
                 backgroundColor: Color.fromRGBO(255, 229, 180, 22),
                 // foregroundImage: AssetImage('assets/images/sc9.png'),
               ),

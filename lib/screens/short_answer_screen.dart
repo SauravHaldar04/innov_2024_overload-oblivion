@@ -39,6 +39,7 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
         headers: <String, String>{'Content-Type': 'application/json'},
         body: jsonEncode(<String, dynamic>{
           'text': essayController.text,
+          'flag': 1
         }),
       );
 
@@ -103,7 +104,7 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
     }
   }
 
-  Future uploadViaScript() async {
+  Future uploadViaFile() async {
     var dio = Dio();
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
@@ -111,7 +112,7 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
       String fileName = file.path.split('/').last;
       String filePath = file.path;
       FormData data = FormData.fromMap(
-          {'file': await MultipartFile.fromFile(filePath, filename: fileName)});
+          {'data': await MultipartFile.fromFile(filePath, filename: fileName),'flag':0},);
       try {
         var response = await dio.post("${GlobalVariables.Url}/predict",
             data: data, onSendProgress: (int sent, int total) {
@@ -128,7 +129,7 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
   Future<void> submitQuestionAndAnswer() async {
     final question = questionController.text;
     final answer = answerController.text;
-    final essay = essayController.text;
+    
 
     try {
       final response = await http.post(
@@ -293,7 +294,9 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
             Text('Upload a PDF:', style: TextStyle(fontSize: 16)),
             const SizedBox(height: 8),
             ElevatedButton(
-              onPressed: pickPdf,
+              onPressed:() {
+                uploadViaFile();
+              },
               child: const Text('Choose PDF'),
             ),
             if (selectedPdf != null)
@@ -310,8 +313,23 @@ class _ShortAnswerScreenState extends State<ShortAnswerScreen> {
                   shadowColor: Colors.black54, // Set button text color
                   minimumSize: Size(double.infinity, 50),
                 ),
-                onPressed: (){submitQuestionAndAnswer();},
+                onPressed: (){submitQuestionAndAnswer();
+                },
                 child: const Text('Submit',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 19),),
+              ),
+            ),
+            SizedBox(height: 32,),
+            Center(
+              
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromRGBO(17, 84, 218, 1), // Set button background color
+                  shadowColor: Colors.black54, // Set button text color
+                  minimumSize: Size(double.infinity, 50),
+                ),
+                onPressed: (){;
+                essayViaScript();},
+                child: const Text('Submit Essay',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 19),),
               ),
             ),
             // const SizedBox(height: 16),
